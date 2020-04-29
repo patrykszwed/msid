@@ -25,15 +25,17 @@ def sigmoid(x, params):
 def main():
     total_cases = np.asarray([day['Cases'] for day in response])
     days = np.asarray([i for i in range(1, len(total_cases) + 1)])
-    # logs_x = np.asarray([np.log(x) for x in days])
-    # logs_y = np.asarray([np.log(y) for y in total_cases])
-    logs_x = days
-    logs_y = total_cases
+    logs_x = np.asarray([np.log(x) for x in days])
+    # logs_x = np.asarray([x for x in days])
+    logs_y = np.asarray([np.log(y) for y in total_cases])
     print('logs_y', logs_y)
     # print('logs_x', logs_x)
     plt.figure(figsize=(15, 5))
     # plt.plot(days, np.exp(logs_y), '-o', label='measured data')
-    plt.plot(days, logs_y, '-o', label='measured data')
+    plt.plot(days, total_cases)
+    plt.plot(logs_x, logs_y)
+    plt.plot(np.exp(logs_x), np.exp(logs_y))
+    # plt.plot(days, logs_y, '-o', label='measured data')
     # plt.ylim([0, 13000])
     plt.xlabel('Day', fontsize=14)
     plt.ylabel('Total Coronavirus Cases', fontsize=14)
@@ -44,7 +46,7 @@ def main():
     # print('params_init', params_init)
     params_best = fmin(sum_of_squared_errors, params_init, args=(sigmoid, logs_x, logs_y))
     print('1st sum_of_squared_errors = ', sum_of_squared_errors(params_best, sigmoid, logs_x, logs_y))
-    params_best = [11.04935003, 0.32165335, 4.97391684]
+    # params_best = [11.04935003, 0.32165335, 4.97391684]
     print('2nd sum_of_squared_errors = ', sum_of_squared_errors(params_best, sigmoid, logs_x, logs_y))
     print('params_best', params_best)
     # x = np.linspace(start=min(logs_y), stop=max(logs_y), num=len(total_cases))
@@ -52,12 +54,12 @@ def main():
     # print('x', x)
     y = sigmoid(x, params_best)
     print('sigmoid', y)
-    
+
     y_copy = sigmoid(x, params_best)
     # print('y_copy', np.exp(y_copy))
     print('after y_copy', y_copy)
-    # plt.plot(days, np.exp(sigmoid(x, params_best)), '-o', label='naive model')
-    plt.plot(days, sigmoid(x, params_best), '-o', label='naive model')
+    plt.plot(days, np.exp(sigmoid(x, params_best)), '-o', label='naive model')
+    # plt.plot(days, sigmoid(x, params_best), '-o', label='naive model')
 
     plt.legend()
     plt.show()

@@ -23,10 +23,12 @@ N = 10
 a = [1, 0.5, 0.75, 0.31]
 r = 0.1
 z = np.random.normal(0, r, size=N)
-xdata = np.random.uniform(0, 1, size=N)
+# xdata = np.random.uniform(0, 1, size=N)
 # ydata = a * xdata + b + z  # model idealny z nałożonym szumem
-ydata = a[3] * xdata ** 3 + a[2] * xdata ** 2 + a[1] * xdata ** 1 + a[
-    0] * xdata ** 0  # model idealny z nałożonym szumem
+# ydata = a[3] * xdata ** 3 + a[2] * xdata ** 2 + a[1] * xdata ** 1 + a[
+#     0] * xdata ** 0  # model idealny z nałożonym szumem
+xdata = np.asarray([1652.64, 1640.18, 1639.08, 1572.55, 1579.16, 1614.32, 1622.51])
+ydata = np.asarray([471, 383, 356, 272, 241, 401, 411])
 plt.plot(xdata, ydata, '.', markersize=10)
 plt.xlabel('x')
 plt.ylabel('y')
